@@ -12,7 +12,7 @@ class BackendHelperController extends Controller
             'source'=>$request->upload!=null?$request->upload:$request->file,
             'validation'=>"image",
             'path_to_save'=>'/uploads/images/',
-            'type'=>'IMAGE', 
+            'type'=>'IMAGE',
             'user_id'=>\Auth::user()->id,
             'resize'=>[500,1000],
             'small_path'=>'small/',
@@ -21,7 +21,7 @@ class BackendHelperController extends Controller
             'new_extension'=>"webp",
             'optimize'=>true,
             'temp_file_selector'=>$request->temp_file_selector
-        ]); 
+        ]);
         return [
             'fileName'=>$file['filename'],
             'uploaded'=>1,
@@ -32,8 +32,8 @@ class BackendHelperController extends Controller
             'location'=>$file['link'],
             'file'=>$file['link'],
             'url'=>$file['link'],
-            'files'=>$file['files'] 
-            
+            'files'=>$file['files']
+
         ];
     }
     public function use_file(Request $request)
@@ -41,7 +41,7 @@ class BackendHelperController extends Controller
         return $this->use_file($request->name);
     }
     public function remove_file(Request $request)
-    {
+    {dd($request->name);
         return $this->remove_hub_file($request->name);
     }
     public function upload_file(Request $request)
@@ -50,7 +50,7 @@ class BackendHelperController extends Controller
             'source'=>$request->file,
             'validation'=>"image",
             'path_to_save'=>'/uploads/uploads/',
-            'type'=>'uploads', 
+            'type'=>'uploads',
             'user_id'=>\Auth::user()->id,
             'resize'=>[500,3000],
             'small_path'=>'small/',
@@ -58,13 +58,13 @@ class BackendHelperController extends Controller
             'file_system_type'=>env('FILESYSTEM_DRIVER'),
             'new_extension'=>"webp",
             'optimize'=>true
-        ]);  
+        ]);
     }
     public function robots(){
         $settings = (new \App\Helpers\SettingsHelper)->getAllSettings();
         return response($settings['robots_txt'])->header('Content-Type', 'text/plain');
     }
-    public function manifest(){ 
+    public function manifest(){
         $settings = (new \App\Helpers\SettingsHelper)->getAllSettings();
         $manifest = [
             "name"             => $settings['website_name'],
@@ -136,5 +136,5 @@ class BackendHelperController extends Controller
     }
     public function blocked_user(){
         return "عفواً الحساب الخاص بك غير فعال - Sorry , Your Account Is Not Active";
-    }  
+    }
 }
